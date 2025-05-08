@@ -27,10 +27,10 @@ T* Singleton<T>::Instance()
     {
         if (nullptr == m_instance)
             m_instance = new T;
-    }
+    };
 
     return m_instance;
-}
+};
 
 template <typename T>
 void Singleton<T>::Clear()
@@ -39,8 +39,8 @@ void Singleton<T>::Clear()
     {
         delete m_instance;
         m_instance = nullptr;
-    }
-}
+    };
+};
 
 #ifndef SINGLETON_PTR
 #define SINGLETON_PTR(T) Singleton<T>::Instance()

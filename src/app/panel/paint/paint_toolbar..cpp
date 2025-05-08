@@ -1,8 +1,10 @@
 #include "paint_toolbar.h"
 
 
-PaintToolBar::PaintToolBar(const wxPoint & pos, const wxSize & size, long style)
-:ChildPanel(pos, size, style)
+PaintToolBar::PaintToolBar():ChildPanel
+(m_mapPanelUiInfo[g_strPaintSideBarPanel].m_pos
+    , m_mapPanelUiInfo[g_strPaintSideBarPanel].m_size
+    , m_mapPanelUiInfo[g_strPaintSideBarPanel].m_style)
 {
 
 }

@@ -1,9 +1,13 @@
 #include "paint_canvas.h"
+#include "frame_factory.h"
+#include "panel_ui_info.h"
 //:wxScrolledWindow(parent, wxID_ANY, pos, size,wxHSCROLL | wxVSCROLL)
-PaintCanvas::PaintCanvas(const wxPoint &pos, const wxSize &size, long style)
-:ChildPanel(pos, size, style)
+PaintCanvas::PaintCanvas():ChildPanel
+(m_mapPanelUiInfo[g_strPaintCanvasPanel].m_pos
+    , m_mapPanelUiInfo[g_strPaintCanvasPanel].m_size
+    , m_mapPanelUiInfo[g_strPaintCanvasPanel].m_style)
 {
-    //m_owner = parent;
+    
     
 }
 

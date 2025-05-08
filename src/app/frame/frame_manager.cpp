@@ -2,16 +2,15 @@
 #include "paint_canvas.h"
 #include "paint_toolbar.h"
 #include "paint_sidebar.h"
+#include "paint_log.h"
 #include "preview_fileshow.h"
 #include "preview_toolbar.h"
 #include "preview_sidebar.h"
 
 FrameManager::FrameManager()
 {
-    m_mapFrameFactory=
-    {
-        //{g_strPreviewFrame,new FrameFactory<PreviewFileShow,PreviewSideBar,PreviewToolBar>()},
-        {g_strPaintFrame,new FrameFactory<PaintCanvas,PaintSideBar,PaintToolBar>()},
+    m_mapFrameFactory = {
+        {g_strPaintFrame,new FrameFactory<PaintCanvas,PaintSideBar,PaintToolBar,PaintLog>()},
     };
 };
 
@@ -31,27 +30,20 @@ void FrameManager::CloseFrame(std::string frameName)
 {
     if (!FindFrame(frameName))
         return;
-    m_mapFrameInfo[frameName].m_pMainWnd->Close();
-    m_mapFrameInfo[frameName].m_pSideBar->Close();
-    m_mapFrameInfo[frameName].m_pToolBar->Close();
 
+    for(auto m_pPanel:m_mapFrameChildPanel[frameName])
+    {
+        m_pPanel->Close();
+    }
     
 };
 
 void FrameManager::CreateFrame(std::string frameName, bool beHide)
 {
     IFrameFactory* pFrameFactory = m_mapFrameFactory[frameName];
-    FrameInfo m_fFrameInfo;
-    m_fFrameInfo.m_pMainWnd 
-    = pFrameFactory->CreateMainWnd(wxPoint(150, 20), wxSize(650, 580), wxHSCROLL | wxVSCROLL);
 
-    m_fFrameInfo.m_pSideBar 
-    = pFrameFactory->CreateSideBar(wxPoint(0, 20), wxSize(150, 580), wxHSCROLL | wxVSCROLL);
-
-    m_fFrameInfo.m_pToolBar 
-    = pFrameFactory->CreateToolBar(wxPoint(0, 0), wxSize(800, 20), wxHSCROLL | wxVSCROLL);
-
-    m_mapFrameInfo.insert(std::make_pair(frameName, std::move(m_fFrameInfo)));
+    FrameChildPanel m_vecPanels = pFrameFactory->CreatePanels();
+    m_mapFrameChildPanel.insert(std::make_pair(frameName, m_vecPanels));
 };
 
 void FrameManager::ShowFrame(std::string frameName)
@@ -59,14 +51,15 @@ void FrameManager::ShowFrame(std::string frameName)
     if (!FindFrame(frameName))
         return;
 
-    m_mapFrameInfo[frameName].m_pMainWnd->Show();
-    m_mapFrameInfo[frameName].m_pSideBar->Show();
-    m_mapFrameInfo[frameName].m_pToolBar->Show();
+    for(auto m_pPanel:m_mapFrameChildPanel[frameName])
+    {
+        m_pPanel->Show();
+    }
 };
 
 bool FrameManager::FindFrame(std::string frameName)
 {
-    if(m_mapFrameInfo.find(frameName) != m_mapFrameInfo.end())
+    if(m_mapFrameChildPanel.find(frameName) != m_mapFrameChildPanel.end())
         return true;
     else
         return false;

@@ -1,8 +1,10 @@
 #include "paint_sidebar.h"
+#include "panel_ui_info.h"
 
-
-PaintSideBar::PaintSideBar(const wxPoint & pos, const wxSize & size, long style)
-:ChildPanel(pos, size, style)
+PaintSideBar::PaintSideBar()
+:ChildPanel(m_mapPanelUiInfo[g_strPaintSideBarPanel].m_pos
+    , m_mapPanelUiInfo[g_strPaintSideBarPanel].m_size
+    , m_mapPanelUiInfo[g_strPaintSideBarPanel].m_style)
 {
 
 }

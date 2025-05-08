@@ -1,8 +1,11 @@
 #include "main_frame.h"
-
+#include "common_header.h"
+#include "gui_header.h"
 MainFrame::MainFrame()
 : wxFrame(nullptr, wxID_ANY
-    , wxString("whypainter"),wxPoint(0, 0), FromDIP(wxSize(1280 , 1024)))
+    , m_mainFrameUiInfo.m_name
+    ,m_mainFrameUiInfo.m_pos
+    , m_mainFrameUiInfo.m_size)
 {
     // create a menu bar
     wxMenu *fileMenu = new wxMenu;

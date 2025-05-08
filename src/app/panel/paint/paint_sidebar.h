@@ -1,12 +1,10 @@
 #pragma once
-
-#include "wx_import.h"
-#include "cxx_import.h"
-#include "child_panel.h"
+#include "common_header.h"
+#include "gui_header.h"
 class PaintSideBar : public ChildPanel
 {
 public:
-    PaintSideBar(const wxPoint& pos, const wxSize& size, long style);
+    PaintSideBar();
     ~PaintSideBar();
     void OnPaint(wxPaintEvent &event);
     // void OnMouseMove(wxMouseEvent &event);

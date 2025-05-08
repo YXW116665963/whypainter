@@ -1,24 +1,18 @@
 #pragma once
 
 #include "frame_factory_interface.h"
-template<class MainWndT,class SideBarT,class ToolBarT>
+template <typename... Args>
 class FrameFactory : public IFrameFactory
 {
 public:
     FrameFactory(bool bSupportReadOnly =false){};
     ~FrameFactory() override = default;
 public:
-    ChildPanel* CreateMainWnd(const wxPoint& pos,const wxSize& size, long style) override
+    std::vector<ChildPanel*> CreatePanels() override
     {
-        return new MainWndT(pos,size,style);
-    }
-    ChildPanel* CreateSideBar(const wxPoint& pos,const wxSize& size, long style) override
-    {
-        return new SideBarT(pos,size,style);
-    }
-    ChildPanel* CreateToolBar(const wxPoint& pos,const wxSize& size, long style) override
-    {
-        return new ToolBarT(pos,size,style);
+        std::vector<ChildPanel*> m_vecPanels;
+        (CreatePanel<Args>(m_vecPanels),...);
+        return m_vecPanels;
     }
     bool IsSupportReadOnly() override
     {
@@ -28,5 +22,9 @@ private:
     bool m_bSupportReadOnly;
     bool m_bEmptyPanel;
 
-    
+    template <typename T>
+    void CreatePanel(std::vector<ChildPanel*>& panels)
+    {
+        panels.push_back(new T());
+    };
 };

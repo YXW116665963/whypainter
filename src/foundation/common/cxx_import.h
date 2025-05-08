@@ -1,7 +1,5 @@
 #pragma once
 
-#include "singleton.h"
-
 #include <iostream>
 #include <map>
 #include <vector>

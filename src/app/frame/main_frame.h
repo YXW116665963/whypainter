@@ -1,8 +1,8 @@
 #pragma once
 
-#include "wx_import.h"
-#include "cxx_import.h"
-#include "child_panel.h"
+#include <wx/wx.h>
+// #include "gui_header.h"
+// #include "common_header.h"
 // IDs for the controls and the menu commands
 enum
 {
@@ -26,11 +26,6 @@ public:
     // event handlers (these functions should _not_ be virtual)
     void OnQuit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
-
-    ChildPanel* m_pMainWnd;
-    ChildPanel* m_pSideBar;
-    ChildPanel* m_pToolBar;
-
 private:
 
 

@@ -12,13 +12,13 @@ include_directories(${APP_ROOT}/frame)
 include_directories(${APP_ROOT}/panel/paint)
 include_directories(${APP_ROOT}/panel/preview)
 include_directories(${APP_ROOT})
-include_directories(${FOUNDATION_ROOT}/common)
+include_directories(${FOUNDATION_ROOT}/include)
 include_directories(${FOUNDATION_ROOT}/gui)
-
+include_directories(${FOUNDATION_ROOT}/common)
 # Define the build target for the executable
 add_executable(${PROJECT_NAME} WIN32 MACOSX_BUNDLE ${APP_ALLSRC})
 
-#message(STATUS "APP_ALLSRC: ${APP_ALLSRC}")
+message(STATUS "FOUNDATION_ROOT: ${FOUNDATION_ROOT}")
 
 
 # Request the required wxWidgets libs
